@@ -1,5 +1,7 @@
 *** Settings ***
-Library		Selenium2Library
+Library		      Selenium2Library
+Suite Teardown    Close Browser
+
 
 *** Variables ***
 
@@ -8,6 +10,18 @@ Add Product Into Shopping Card
 	Open Browser     http://www.tarad.com/product/5748253
 
 	Title Should be     รหัส387 พร้อมส่ง เสื้อผ้าแฟชั่น ชุดเดรสสั้นผ้าลูกไม้สีขาว คอกลม แขนกุด # 5748253
-	Close Browser
+
+Select Qty And Create Order
+	Select From List By Value     product_qty     2
+	Click Element                 f_buy
+	Wait Until Page Contains      2 ชิ้น
+
+	Click Element                 btn-payment
+	Unselect Checkbox             check_guest_register
+	Click Button                  ซื้อทันทีไม่ต้องสมัครสมาชิก
+
+    Click Element                 bill-payment
 
 *** Keywords ***
+
+
